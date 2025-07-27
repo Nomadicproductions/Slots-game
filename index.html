@@ -203,21 +203,22 @@
     ];
 
     // --- Define 5 Paylines ---
+    // Adjusted order: 1st is middle, 2nd is top, 3rd is bottom, 4th/5th are diagonals
     const paylines = [
-      [ [0,0], [1,0], [2,0] ], // Top row
-      [ [0,1], [1,1], [2,1] ], // Middle row
-      [ [0,2], [1,2], [2,2] ], // Bottom row
+      [ [0,1], [1,1], [2,1] ], // Middle row (was #2, now #1)
+      [ [0,0], [1,0], [2,0] ], // Top row (was #1, now #2)
+      [ [0,2], [1,2], [2,2] ], // Bottom row (was #3, now #3)
       [ [0,0], [1,1], [2,2] ], // Diagonal TL-BR
       [ [0,2], [1,1], [2,0] ]  // Diagonal BL-TR
     ];
 
     // --- Payline Colors ---
     const paylineColors = [
-      "#e53935", // Red
-      "#1e88e5", // Blue
-      "#43a047", // Green
-      "#fb8c00", // Orange
-      "#8e24aa"  // Purple
+      "#1e88e5", // Blue (middle line, new #1)
+      "#e53935", // Red (top line, new #2)
+      "#43a047", // Green (bottom line, new #3)
+      "#fb8c00", // Orange (diagonal TL-BR)
+      "#8e24aa"  // Purple (diagonal BL-TR)
     ];
 
     // --- PROBABILITY REEL GENERATION ---
@@ -437,11 +438,12 @@
       spinBtn.onclick = async function() {
         const bet = parseFloat(betSelect.value);
         const activePaylines = parseInt(document.getElementById('paylinesAmount').value, 10);
-        if (balance < bet) {
+        const totalBet = bet * activePaylines; // <-- Bet is multiplied by amount of active paylines
+        if (balance < totalBet) {
           showWinMsg("Insufficient balance!");
           return;
         }
-        setBalance(balance - bet);
+        setBalance(balance - totalBet);
         spinBtn.disabled = true;
         betSelect.disabled = true;
         paylinesSelect.disabled = true;
