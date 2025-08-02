@@ -77,7 +77,6 @@
     .payout-table-row img { width: 48px; height: 48px; object-fit: contain; margin-right: 12px; border-radius: 6px; border: 1px solid #fff3; background: #181f11; }
     .payout-table-row .symbol-name { min-width: 110px; }
     .payout-table-row .symbol-payout { color: #ffed6b; font-weight: 600; margin-left: auto; }
-    /* --- DEBUG PANEL --- */
     #debug-algo {
       position: absolute;
       top: 10px;
@@ -229,7 +228,8 @@
     let switchThreshold = getRandomThreshold();
     let balanceAtSwitch = 100.00;
     function getRandomThreshold() {
-      return +(Math.random() * (150 - 1.5) + 1.5).toFixed(2);
+      // *** CHANGED TO $1.50 - $20.00 RANGE ***
+      return +(Math.random() * (20 - 1.5) + 1.5).toFixed(2);
     }
     function updateDebugDisplay() {
       document.getElementById('debug-mode').textContent = (algoMode === 'win' ? 'WIN' : 'LOSS');
